@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		
+		{% include 'meta.html' %}
+		{% include 'css.html' %}
+
+		<!-- Title of the website -->
+		<title>Book-My-Bus</title>
+	</head>
+	<body>
+
+		{% include 'navbar.html' %}
+		
+		{% include 'login-modal.html' %}
+		
+		{% include 'signup-modal.html' %}
+
+		<header class="jumbotron jumb5">
+            <div class="container">
+                <h1>"Book-My-Bus is your best friend for safe, fast and hassle free travel"</h1>
+                <br>
+                <form id="form1" class="form-horizontal" role="form" method = "POST" action="{% url 'safety_search' %}">
+                	{% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-bus fa-lg"></i>
+                                </span>
+                                <input type="text" class="form-control" name="busno" placeholder="Bus Number (Ex: 8A)" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default btn-lg">Search</button>
+                </form>
+            </div>
+        </header>
+
+		{% include 'footer.html' %}
+
+		{% include 'script.html' %}
+		
+	</body>
+</html>

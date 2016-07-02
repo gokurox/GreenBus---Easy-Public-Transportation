@@ -1,0 +1,33 @@
+<div class="modal fade loginModalBody" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+    	<div class="modal-content">
+      		<div class="modal-header login_modal_header">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        		<h2 class="modal-title" id="myModalLabel"><i class="fa fa-sign-in fa-lg"></i> Login</h2>
+      		</div>
+      		<div class="modal-body login-modal">
+      			<div id='social-icons-container'>
+	        		<div class='modal-body'>
+	        			<form class="form" role="form" id="login-form" method="POST" action="{% url 'login_check' %}">
+	        				{% csrf_token %}
+	        				<div class="input-group margin-bottom-sm">
+								<span class="input-group-addon"><i class="fa fa-mobile fa-fw"></i></span>
+								<input class="form-control" type="text" name="mobile_number" placeholder="Mobile Number" maxlength="10" required>
+							</div>
+		            		<br>
+		            		<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+								<input class="form-control" type="password" name="password" placeholder="Password" required>
+							</div>
+							<br>
+							<button type="submit" class="btn btn-success btn-lg">Login</button>
+							<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</button>
+						</form>
+						<br>
+						<a href="#">Forgot password?</a>
+	        		</div>
+	        	</div>									
+      		</div>
+    	</div>
+  	</div>
+</div>

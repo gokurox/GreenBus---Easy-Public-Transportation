@@ -1,0 +1,161 @@
+<script>
+    //initializing variables for showing multiple paths on one google map
+    var directionsService = new google.maps.DirectionsService();
+    var requestArray = [], renderArray = [];
+    
+    // Define your locations: HTML content for the info window, latitude, longitude
+    var locations = {{queryset | safe}}
+
+    // Setup the different icons and shadows
+    var iconURLPrefix = 'http://www.google.com/mapfiles/';
+
+    var icons = [
+        iconURLPrefix + 'markerA.png',
+        iconURLPrefix + 'markerB.png',
+        iconURLPrefix + 'markerC.png',
+        iconURLPrefix + 'markerD.png',
+        iconURLPrefix + 'markerE.png',
+        iconURLPrefix + 'markerF.png',      
+        iconURLPrefix + 'markerG.png',
+        iconURLPrefix + 'markerH.png',
+        iconURLPrefix + 'markerI.png',
+        iconURLPrefix + 'markerJ.png',
+        iconURLPrefix + 'markerK.png',
+        iconURLPrefix + 'markerL.png',
+        iconURLPrefix + 'markerM.png',      
+        iconURLPrefix + 'markerN.png',
+        iconURLPrefix + 'markerO.png',
+        iconURLPrefix + 'markerP.png',
+        iconURLPrefix + 'markerQ.png',
+        iconURLPrefix + 'markerR.png',
+        iconURLPrefix + 'markerS.png',
+        iconURLPrefix + 'markerT.png',      
+        iconURLPrefix + 'markerU.png',
+        iconURLPrefix + 'markerV.png',
+        iconURLPrefix + 'markerW.png',
+        iconURLPrefix + 'markerX.png',
+        iconURLPrefix + 'markerY.png',
+        iconURLPrefix + 'markerZ.png'
+    ]
+    
+    var iconsLength = icons.length;
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: new google.maps.LatLng(-37.92, 151.25),
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
+        streetViewControl: false,
+        panControl: false,
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.LEFT_BOTTOM
+        }
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+        maxWidth: 150
+    });
+
+    var markers = new Array();
+
+    var iconCounter = 0;
+
+    // Add the markers and infowindows to the map
+    for (var i = 0; i < locations.length; i++) {  
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i].fields.latitude, locations[i].fields.longitude),
+            map: map,
+            icon: icons[iconCounter]
+        });
+
+        markers.push(marker);
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infowindow.setContent(locations[i].fields.bus_stop_name);
+                infowindow.open(map, marker);
+            }
+        })(marker, i));
+
+        iconCounter++;
+        // We only have a limited number of possible icon colors, so we may have to restart the counter
+        if(iconCounter >= iconsLength) {
+            iconCounter = 0;
+        }
+    }
+
+    function placeMarkers() {
+        //  Create a new viewpoint bound
+        var bounds = new google.maps.LatLngBounds();
+        //  Go through each...
+        for (var i = 0; i < markers.length; i++) {  
+            bounds.extend(markers[i].position);
+        }
+        //  Fit these bounds to the map
+        map.fitBounds(bounds);
+    }
+
+    function drawRoutes() {
+        for (var i = 0; i < markers.length - 1; i++) {
+
+            var start = markers[i].position;
+            var end = markers[i+1].position;
+
+            // Let's create the Google Maps request object
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            // and save it in our requestArray
+            requestArray.push(request);
+        }
+
+        processRequests();
+    }
+
+    function processRequests() {
+
+        // Counter to track request submission and process one at a time;
+        var i = 0;
+
+        // Used to submit the request 'i'
+        function submitRequest() {
+            directionsService.route(requestArray[i], directionResults);
+        }
+
+        // Used as callback for the above request for current 'i'
+        function directionResults(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                
+                // Create a unique DirectionsRenderer 'i'
+                renderArray[i] = new google.maps.DirectionsRenderer({suppressMarkers: true});
+                renderArray[i].setMap(map);
+
+                // Use this new renderer with the result
+                renderArray[i].setDirections(result);
+                // and start the next request
+                nextRequest();
+            }
+        }
+
+        function nextRequest(){
+            // Increase the counter
+            i++;
+            // Make sure we are still waiting for a request
+            if(i >= requestArray.length){
+                // No more to do
+                return;
+            }
+            // Submit another request
+            submitRequest();
+        }
+
+        // This request is just to kick start the whole process
+        submitRequest();
+    }
+
+    placeMarkers();
+    //drawRoutes();
+</script>

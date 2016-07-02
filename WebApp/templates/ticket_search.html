@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+	{% include 'meta.html' %}
+	{% include 'css.html' %}
+
+	<!-- Title of the website -->
+	<title>Book-My-Bus</title>
+</head>
+<body>
+
+	{% include 'navbar.html' %}
+
+	{% include 'login-modal.html' %}
+
+	{% include 'signup-modal.html' %}
+
+	<header class="jumbotron jumb6">
+		<div class="container">
+			<h2 style="letter-spacing: 3px; text-decoration: underline;">DTC Fare Rates</h2>
+			<div id="dtc-fare">
+				<table class="table table-responsive table-bordered">
+					<thead>
+						<tr>
+							<th style="text-align: center; background: #ce1126">DISTANCE RANGE</th>
+							<th style="text-align: center; background: #ce1126">FARE PER ADULT</th>
+							<th style="text-align: center; background: #ce1126">FARE PER CHILD</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0 - 4 Kms</td>
+							<td>Rs. 5</td>
+							<td>Rs. 3</td>
+						</tr>
+						<tr>
+							<td>4 - 10 Kms</td>
+							<td>Rs. 10</td>
+							<td>Rs. 5</td>
+						</tr>
+						<tr>
+							<td>10 Kms and Above</td>
+							<td>Rs. 15</td>
+							<td>Rs. 8</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 style="letter-spacing: 3px; text-decoration: underline;">Journey Details</h2>
+			<div id="ticket-summary">
+				{% for paths in Paths %}
+					{% if paths.bus|length > 0 %}
+						<table class="table table-responsive table-bordered">
+							<tbody>
+								<tr>
+									<td style="background: #ce1126">Source Bus Stop</td>
+									<td>{{A}}</td>
+								</tr>
+								<tr>
+									<td style="background: #ce1126">Destination Bus Stop</td>
+									<td>{{B}}</td>
+								</tr>
+								<tr>
+									<td style="background: #ce1126">Number of Adults</td>
+									<td>{{Adults}}</td>
+								</tr>
+								<tr>
+									<td style="background: #ce1126">Number of Children</td>
+									<td>{{Children}}</td>
+								</tr>
+								<tr>
+									<td style="background: #ce1126">Path</td>
+									<td>
+										START :
+										{% for node in paths.path %}
+											{{node}} :
+										{% endfor %}
+										END
+									</td>
+								</tr>
+								<tr>
+									<td style="background: #ce1126">Distance</td>
+									<td>
+										{{paths.weight}} Kms
+									</td>
+								</tr>
+								{% for edge in paths.zip %}
+									{% if edge|length == 6 %}
+										<tr>
+											<td style="background: #ce1126">Bus Plan</td>
+											<td>
+										    	Board the Bus : {{edge.0}} at {{edge.1}} and deboard at {{edge.2}}
+										    	<br>
+											</td>
+										</tr>
+										<tr>
+											<td style="background: #ce1126">Cost Per Adult</td>
+											<td>Rs. {{edge.4}}</td>
+										</tr>
+										<tr>
+											<td style="background: #ce1126">Cost Per Child</td>
+											<td>Rs. {{edge.5}}</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+								<tr>
+									<td style="background: #ce1126">Total Cost</td>
+									<td>Rs. {{ paths.zip|last }}</td>
+								</tr>
+							</tbody>
+						</table>
+						<a href="{% url 'payment' %}"><button type="button" class="btn btn-default btn-lg">PAY Rs. {{paths.zip|last}} AND BOOK TICKETS</button></a>
+						<br>
+						<br>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</header>
+	{% include 'footer.html' %}
+
+	{% include 'script.html' %}
+
+</body>
+</html>

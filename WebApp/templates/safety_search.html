@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		
+		{% include 'meta.html' %}
+		{% include 'css.html' %}
+
+		<!-- Title of the website -->
+		<title>Book-My-Bus</title>
+	</head>
+	<body>
+
+		{% include 'navbar.html' %}
+		
+		{% include 'login-modal.html' %}
+		
+		{% include 'signup-modal.html' %}
+
+		<header class="jumbotron jumb6">
+            <div class="container">
+            	<h2 style="letter-spacing: 3px; text-decoration: underline;">Safety Rating Chart</h2>
+            	<div id="dtc-fare">
+					<table class="table table-responsive table-bordered">
+						<thead>
+							<tr>
+								<th style="text-align: center; background: #ce1126">SAFETY RATING</th>
+								<th style="text-align: center; background: #ce1126">MEANING</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>0 < Safety Rating <= 1</td>
+								<td>Poor Safety</td>
+							</tr>
+							<tr>
+								<td>1 < Safety Rating <= 2</td>
+								<td>Satisfactory Safety</td>
+							</tr>
+							<tr>
+								<td>2 < Safety Rating <= 3</td>
+								<td>Average Safety</td>
+							</tr>
+							<tr>
+								<td>3 < Safety Rating <= 4</td>
+								<td>Good Safety</td>
+							</tr>
+							<tr>
+								<td>4 < Safety Rating <= 5</td>
+								<td>Very Good Safety</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<h2 style="letter-spacing: 3px;">Bus Number : {{bus_number}}</h2>
+				<h2 style="letter-spacing: 3px;">Bus Safety Rating : {{rating}}</h2>
+	            <div id="reviews" class="container-fluid text-center bg-1">
+	            	<h2 style="letter-spacing: 5px; text-decoration: underline">BUS NUMBER {{bus_number}} REVIEWS</h2>
+	            	<div id="myCarousel2" class="carousel slide text-center" data-ride="carousel" data-interval="5000" data-pause="hover">
+
+	            		<!-- Indicators -->
+	            		<ol class="carousel-indicators">
+	            			<li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+	            			<li data-target="#myCarousel2" data-slide-to="1"></li>
+	            			<li data-target="#myCarousel2" data-slide-to="2"></li>
+	            			<li data-target="#myCarousel2" data-slide-to="3"></li>
+	            			<li data-target="#myCarousel2" data-slide-to="4"></li>
+	            			<li data-target="#myCarousel2" data-slide-to="5"></li>
+	            		</ol>
+
+	            		<!-- Wrapper for slides -->
+	            		<div class="carousel-inner slideanim" role="listbox">
+	            			<div class="item active">
+	            				<h4>"I would say that i had an average experience. The staff was good and i felt safe in the bus throughout my journey."<br><br><span style="font-style:normal;">- Akash Gupta, April 23, 2016, 11:14 p.m</span></h4>
+	            			</div>
+	            			{% for item in queryset %}
+	            			<div class="item">
+	            				<h4>"{{item.feedback}}"<br><br><span style="font-style:normal;">- {{item.first_name}} {{item.last_name}}, {{item.timestamp}}</span></h4>
+	            			</div>
+	            			{% endfor %}
+	            		</div>
+
+	            		<!-- Left and right controls -->
+	            		<a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev">
+	            			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	            			<span class="sr-only">Previous</span>
+	            		</a>
+	            		<a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next">
+	            			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	            			<span class="sr-only">Next</span>
+	            		</a>
+	            	</div>
+	            </div>
+	        </div>
+        </header>
+
+		{% include 'footer.html' %}
+
+		{% include 'script.html' %}
+		
+	</body>
+</html>

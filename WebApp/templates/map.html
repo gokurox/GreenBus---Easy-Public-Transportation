@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		
+		{% include 'meta.html' %}
+		{% include 'css.html' %}
+
+		<!-- Title of the website -->
+		<title>Book-My-Bus</title>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+	</head>
+	<body>
+
+		{% include 'navbar.html' %}
+		
+		{% include 'login-modal.html' %}
+		
+		{% include 'signup-modal.html' %}
+
+		<header class="jumbotron jumb5">
+            <div class="container">
+                <h1>Bus Number: {{bus_number}}</h1>
+
+                <div id="map"></div>
+
+                <div id="data">
+                    <table class="table table-responsive table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center; background: #ce1126">MARKER</th>
+                                <th style="text-align: center; background: #ce1126">BUS STOP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for instance in data %}
+                                <tr>
+                                    <td>{{instance.marker}}</td>
+                                    <td>{{instance.bus_stop_name}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </header>
+
+		{% include 'footer.html' %}
+
+		{% include 'script.html' %}
+
+        {% include 'gmap.html' %}
+	</body>
+</html>

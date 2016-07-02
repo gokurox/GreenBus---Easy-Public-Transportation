@@ -1,0 +1,48 @@
+{% load staticfiles %}
+
+<nav class="navbar navbar-fixed-top" role="navigation">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/dtc.gif' %}" height=50 width=100 style="margin-top: -15px"></a>
+	</div>
+	<div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav">
+			<li>
+				<a href="{% url 'home' %}"><i class="fa fa-ticket fa-lg"></i> Buy Ticket</a>
+			</li>
+			<li>
+				<a href="{% url 'route' %}"><i class="fa fa-bus fa-lg"></i> Bus Route</a>
+			</li>
+			<li>
+				<a href="{% url 'feedback' %}"><i class="fa fa-comment fa-lg"></i> Feedback</a>
+			</li>
+			<li>
+				<a href="{% url 'safety' %}"><i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i> Bus Safety</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				{% if request.user.is_authenticated %}
+					<a href="{% url 'home' %}">
+					<i class="fa fa-user fa-lg"></i> {{request.user.first_name}} {{request.user.last_name}}</a>
+				{% else %}
+					<a href="#loginModal" data-toggle="modal">
+					<i class="fa fa-sign-in fa-lg"></i> Login</a>
+				{% endif %}
+			</li>
+			<li>
+				{% if request.user.is_authenticated %}
+					<a href="{% url 'log_out' %}">
+					<i class="fa fa-sign-out fa-lg"></i> Logout</a>
+				{% else %}
+					<a href="#signupModal" data-toggle="modal">
+					<i class="fa fa-user-plus fa-lg"></i> Register</a>
+				{% endif %}
+			</li>
+		</ul>
+	</div>
+</nav>
