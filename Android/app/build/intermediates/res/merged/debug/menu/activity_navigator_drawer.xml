@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_plantravel"
+            android:title="Plan Your Travel" />
+        <!--android:icon="@drawable/ic_menu_camera"-->
+
+        <item
+            android:id="@+id/nav_discoverRoute"
+            android:title="Discover Bus Route" />
+        <!--android:icon="@drawable/ic_menu_slideshow"-->
+
+        <item
+            android:id="@+id/nav_shareExperience"
+            android:title="Give Feedback" />
+        <!--android:icon="@drawable/ic_menu_share"-->
+
+        <item
+            android:id="@+id/nav_busSafety"
+            android:title="Bus Review" />
+        <!--android:icon="@drawable/ic_menu_send"-->
+
+    </group>
+</menu>

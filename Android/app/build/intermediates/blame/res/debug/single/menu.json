@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\AndroidStudio\\GreenBus_Evs_IIITD\\app\\build\\intermediates\\res\\merged\\debug\\menu\\navigator.xml",
+        "source": "D:\\AndroidStudio\\GreenBus_Evs_IIITD\\app\\src\\main\\res\\menu\\navigator.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio\\GreenBus_Evs_IIITD\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_navigator_drawer.xml",
+        "source": "D:\\AndroidStudio\\GreenBus_Evs_IIITD\\app\\src\\main\\res\\menu\\activity_navigator_drawer.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio\\GreenBus_Evs_IIITD\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_splash_screen.xml",
+        "source": "D:\\AndroidStudio\\GreenBus_Evs_IIITD\\app\\src\\main\\res\\menu\\menu_splash_screen.xml"
+    }
+]
